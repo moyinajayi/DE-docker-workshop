@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  taxi_ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: taxi_ingest:v001
+    command: >
+      --pg-user=root
+      --pg-pass=root
+      --pg-host=pgdatabase
+      --pg-port=5432
+      --pg-db=ny_taxi
+      --target-table=yellow_taxi_trips
+    environment:
+      PYTHONUNBUFFERED: '1'
+    restart: 'no'
