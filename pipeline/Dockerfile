@@ -10,5 +10,5 @@ RUN uv sync
 
 COPY ingest_data.py .
 
-ENTRYPOINT ["python", "ingest_data.py"]
+ENTRYPOINT ["ingest_data.py"]
 

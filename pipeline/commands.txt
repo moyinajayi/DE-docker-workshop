@@ -30,3 +30,16 @@ docker run -it --rm \
     --pg-db=ny_taxi \
     --target-table=yellow_taxi_trips_2021_1 \
     --chunksize=100000 
+
+
+# Ingest green taxi data
+uv run python ingest_data2.py \
+  --pg-user=root \
+  --pg-pass=root \
+  --pg-host=localhost \
+  --pg-port=5432 \
+  --pg-db=ny_taxi \
+  --data-type=green_taxi \
+  --year=2025 \
+  --month=11 \
+  --chunksize=100000
