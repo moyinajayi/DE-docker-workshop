@@ -12,12 +12,3 @@ COPY ingest_data.py .
 
 ENTRYPOINT ["python", "ingest_data.py"]
 
-
-docker run -it --rm \
-  taxi_ingest:v001 \
-    --pg-user=root \
-    --pg-pass=root \
-    --pg-host=localhost \
-    --pg-port=5432 \
-    --pg-db=ny_taxi \
-    --target-table=yellow_taxi_trips

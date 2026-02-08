@@ -47,7 +47,7 @@ parse_dates = [
 @click.option('--chunksize', default=100000, type=int, help='Chunk size for reading')
 def run(pg_user, pg_pass, pg_host, pg_db, pg_port, year, month, target_table, chunksize):
 
-    # Read a sample of the data
+    #  """Ingest NYC taxi data into PostgreSQL database."""
     prefix = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/'
     url = f'{prefix}/yellow_tripdata_{year}-{month:02d}.csv.gz' 
     engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
@@ -71,11 +71,12 @@ def run(pg_user, pg_pass, pg_host, pg_db, pg_port, year, month, target_table, ch
                 )
             first = False
 
-            df_chunk.to_sql(
-                name=target_table, 
-                con=engine, 
-                if_exists='append'
-            )
+        df_chunk.to_sql(
+            name=target_table,
+            con=engine,
+            if_exists='append',
+            index=False
+        )
 
 if __name__ == '__main__':
     run()
