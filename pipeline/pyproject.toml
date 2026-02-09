@@ -10,7 +10,9 @@ dependencies = [
     "sqlalchemy>=2.0.46",
     "tqdm>=4.67.3",
     "pandas>=2.2.0",
-    "pyarrow>=23.0.0"
+    "pyarrow>=23.0.0",
+    "google-cloud-storage",
+    "google-api-core"
 ]
 
 [dependency-groups]
