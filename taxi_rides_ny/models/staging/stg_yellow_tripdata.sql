@@ -7,7 +7,7 @@ renamed as (
         -- identifiers (standardized naming for consistency across yellow/green)
         cast(vendorid as integer) as vendor_id,
         --safe_cast(cast(vendorid as float64) as int64) as vendorid,
-    safe_cast(cast(ratecodeid as float64) as int64) as ratecodeid,
+    safe_cast(cast(ratecodeid as float64) as int64) as rate_code_id,
         cast(pulocationid as integer) as pickup_location_id,
         cast(dolocationid as integer) as dropoff_location_id,
 
