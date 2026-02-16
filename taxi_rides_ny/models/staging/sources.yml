@@ -104,3 +104,6 @@ sources:
             description: Improvement surcharge
           - name: total_amount
             description: Total amount charged
+      - name: fhv_tripdata_2019_ext
+        description: FHV trips 2019 (external table over GCS)
+
