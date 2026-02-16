@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: project-95cf2209-f1e7-4545-a0c
+    schema: trips_data_all
+
+    tables:
+      - name: green_tripdata
+      - name: yellow_tripdata
