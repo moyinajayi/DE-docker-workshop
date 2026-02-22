@@ -225,3 +225,9 @@ test/file2.txt
 test/file3.txt
 test/script.py
 
+
+.bruin.yml
+logs/runs
+logs/*.log
+*.py[cod]
+logs/queries
