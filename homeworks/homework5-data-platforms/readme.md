@@ -15,7 +15,7 @@ In a Bruin project, what are the required files/directories?
 - `.bruin.yml` and `pipeline/` with `pipeline.yml` and `assets/`
 - `pipeline.yml` and `assets/` only
 
-**Answer** -  `.bruin.yml` and `pipeline/` with `pipeline.yml` and `assets/`
+**Answer** -  `pipeline.yml` and `assets/` only
 
 ---
 
@@ -63,7 +63,7 @@ You've modified the `ingestion/trips.py` asset and want to run it plus all downs
 - `bruin run pipeline/trips.py --recursive`
 - `bruin run --select ingestion.trips+`
 
-**Answer** - - `bruin run --select ingestion.trips+`
+**Answer** - `bruin run ingestion/trips.py --downstream`
 
 ---
 

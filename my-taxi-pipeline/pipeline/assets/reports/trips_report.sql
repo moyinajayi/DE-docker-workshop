@@ -69,7 +69,7 @@ SELECT
     ROUND(AVG(fare_amount), 2) as avg_fare_amount,
     SUM(passenger_count) as total_passengers,
     ROUND(AVG(tip_amount), 2) as avg_tip_amount,
-    COUNT(DISTINCT VendorID) as unique_vendors
+    COUNT(DISTINCT vendor_id) as unique_vendors
 FROM staging.trips
 WHERE CAST(pickup_datetime AS DATE) >= CAST('{{ start_datetime }}' AS DATE)
   AND CAST(pickup_datetime AS DATE) < CAST('{{ end_datetime }}' AS DATE)
