@@ -1,0 +1,20 @@
+
+name: nyc-taxi
+
+# TODO: Pick a schedule ("daily", "hourly", "weekly", "monthly") or a cron string.
+schedule: "daily"
+
+# Set the earliest date this pipeline should consider for full refresh backfills.
+# Format: YYYY-MM-DD
+start_date: "2022-01-01"
+
+
+default_connections:
+  duckdb: duckdb-default
+
+variables:
+  taxi_types:
+    type: array  # should be: array
+    items:
+      type: string  # should be: string
+    default: ["yellow", "green"]  # e.g. ["yellow", "green"]
