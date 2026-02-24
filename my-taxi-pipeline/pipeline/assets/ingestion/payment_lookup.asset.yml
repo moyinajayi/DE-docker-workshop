@@ -1,11 +1,7 @@
 # Seed Asset: Load a local CSV file as a lookup table
 
+name: ingestion.payment_lookup
 
-# TODO: Set the asset name (recommended: ingestion.payment_lookup).
-name: ngestion.payment_lookup
-
-# TODO: Set platform type.
-# suggested type: duckdb.seed
 type: duckdb.seed
 
 # Path to the CSV file (relative to this .asset.yml file).

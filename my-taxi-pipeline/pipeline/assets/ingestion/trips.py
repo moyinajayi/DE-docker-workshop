@@ -9,7 +9,7 @@ connection: duckdb-default
 
 materialization:
   type: table
-  strategy: append
+  strategy: create+replace
 
 @bruin"""
 
@@ -57,10 +57,50 @@ def materialize():
             url = f"{base_url}{taxi_type}_tripdata_{year_month}.parquet"
             
             try:
-                # Fetch and parse parquet file
-                df = pd.read_parquet(url)
+                # Define which columns to read based on taxi type
+                if taxi_type == "yellow":
+                    columns_to_read = [
+                        "VendorID", "tpep_pickup_datetime", "tpep_dropoff_datetime",
+                        "passenger_count", "trip_distance", "RatecodeID",
+                        "store_and_fwd_flag", "PULocationID", "DOLocationID",
+                        "payment_type", "fare_amount", "extra", "mta_tax",
+                        "tip_amount", "tolls_amount", "improvement_surcharge",
+                        "total_amount"
+                    ]
+                else:  # green
+                    columns_to_read = [
+                        "VendorID", "lpep_pickup_datetime", "lpep_dropoff_datetime",
+                        "passenger_count", "trip_distance", "RatecodeID",
+                        "store_and_fwd_flag", "PULocationID", "DOLocationID",
+                        "payment_type", "fare_amount", "extra", "mta_tax",
+                        "tip_amount", "tolls_amount", "improvement_surcharge",
+                        "total_amount"
+                    ]
                 
-                # Add metadata columns for lineage tracking
+                # Fetch only the specified columns
+                df = pd.read_parquet(url, columns=columns_to_read)
+                
+                # Rename to standard column names
+                if taxi_type == "yellow":
+                    df = df.rename(columns={
+                        "VendorID": "vendor_id",
+                        "tpep_pickup_datetime": "pickup_datetime",
+                        "tpep_dropoff_datetime": "dropoff_datetime",
+                        "RatecodeID": "ratecode_id",
+                        "PULocationID": "pulocation_id",
+                        "DOLocationID": "dolocation_id",
+                    })
+                else:  # green
+                    df = df.rename(columns={
+                        "VendorID": "vendor_id",
+                        "lpep_pickup_datetime": "pickup_datetime",
+                        "lpep_dropoff_datetime": "dropoff_datetime",
+                        "RatecodeID": "ratecode_id",
+                        "PULocationID": "pulocation_id",
+                        "DOLocationID": "dolocation_id",
+                    })
+                
+                # Add metadata columns
                 df["taxi_type"] = taxi_type
                 df["extracted_at"] = datetime.now()
                 
@@ -76,7 +116,22 @@ def materialize():
     # Concatenate all dataframes
     if dataframes:
         final_df = pd.concat(dataframes, ignore_index=True)
+        
+        # Ensure only desired columns are present (remove any extra columns) 
+        desired_columns = [
+            "vendor_id", "pickup_datetime", "dropoff_datetime",
+            "passenger_count", "trip_distance", "ratecode_id",
+            "store_and_fwd_flag", "pulocation_id", "dolocation_id",
+            "payment_type", "fare_amount", "extra", "mta_tax",
+            "tip_amount", "tolls_amount", "improvement_surcharge",
+            "total_amount", "taxi_type", "extracted_at"
+        ]
+        
+        # Select only the columns we want, in the order we want
+        final_df = final_df[desired_columns]
+        
         print(f"Total rows fetched: {len(final_df)}")
+        print(f"Final columns: {list(final_df.columns)}")
         return final_df
     else:
         # Return empty DataFrame if nothing was fetched
