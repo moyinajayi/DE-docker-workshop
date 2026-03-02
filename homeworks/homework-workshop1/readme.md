@@ -18,6 +18,8 @@ We challenge you to try out the different methods explored in the workshop when 
 - 2024-06-01 to 2024-07-01
 
 Answer: - 2009-06-01 to 2009-07-01
+![Question 1](hw-workshop1q1.png)
+
 
 
 
@@ -29,6 +31,8 @@ Answer: - 2009-06-01 to 2009-07-01
 - 46.66%
 
 Answer : - 26.66%
+![Question 2](hw-workshop1q2.png)
+
 
 
 ### Question 3: What is the total amount of money generated in tips?
@@ -39,4 +43,7 @@ Answer : - 26.66%
 - $10,063.41
 
 Answer - - $6,063.41
+
+![Question 3](hw-workshop1q3.png)
+
 
