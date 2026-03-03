@@ -29,6 +29,7 @@ MANIFEST
 .ipynb_checkpoints
 .vscode/
 duckdb.db
+test/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -239,4 +240,6 @@ temp/
 *.csv
 *.snappy.parquet.crc
 ._SUCCESS
+._SUCCESS.crc
 .crc
+test/
