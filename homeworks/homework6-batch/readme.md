@@ -104,8 +104,8 @@ Using the zone lookup data and the Yellow November 2025 data, what is the name o
 If multiple answers are correct, select any
 
 
-Answers: - Governor's Island/Ellis Island/Liberty Island 
-         - Arden Heights
+Answers: - Governor's Island/Ellis Island/Liberty Island ,
+          Arden Heights
 
 ![Question 6](homework6q6.png)
 
