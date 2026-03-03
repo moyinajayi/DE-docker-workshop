@@ -235,3 +235,8 @@ logs/queries
 
 duckdb.db
 temp/
+.DS_Store
+*.csv
+*.snappy.parquet.crc
+._SUCCESS
+.crc
