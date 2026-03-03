@@ -19,6 +19,7 @@ wget https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-11.par
 What's the output?
 
 Answer: - 4.1.1
+
 ![Question 1](homework6q1.png)
 
 
@@ -36,6 +37,7 @@ What is the average size of the Parquet (ending with .parquet extension) Files t
 - 100MB
 
 Answer: - 25MB
+
 ![Question 2](homework6q2.png)
 
 
@@ -51,7 +53,9 @@ Consider only trips that started on the 15th of November.
 - 225,768
 
 Answer: - 162,604
+
 ![Question 3](homework6q3.png)
+
 
 ## Question 4: Longest trip
 
@@ -64,6 +68,7 @@ What is the length of the longest trip in the dataset in hours?
 
 
 Answer: - 90.6
+
 ![Question 4](homework6q4.png)
 
 ## Question 5: User Interface
@@ -76,6 +81,7 @@ Spark's User Interface which shows the application's dashboard runs on which loc
 - 8080
 
 Answer: - 4040
+
 ![Question 5](homework6q5.png)
 
 
@@ -98,7 +104,8 @@ Using the zone lookup data and the Yellow November 2025 data, what is the name o
 If multiple answers are correct, select any
 
 
-Answers: - Governor's Island/Ellis Island/Liberty Island ,  Arden Heights
+Answers: - Governor's Island/Ellis Island/Liberty Island ,
+          Arden Heights
 
 ![Question 6](homework6q6.png)
 
@@ -115,39 +122,3 @@ We encourage everyone to share what they learned. This is called "learning in pu
 
 Read more about the benefits [here](https://alexeyondata.substack.com/p/benefits-of-learning-in-public-and).
 
-### Example post for LinkedIn
-
-```
-🚀 Week 6 of Data Engineering Zoomcamp by @DataTalksClub complete!
-
-Just finished Module 6 - Batch Processing with Spark. Learned how to:
-
-✅ Set up PySpark and create Spark sessions
-✅ Read and process Parquet files at scale
-✅ Repartition data for optimal performance
-✅ Analyze millions of taxi trips with DataFrames
-✅ Use Spark UI for monitoring jobs
-
-Processing 4M+ taxi trips with Spark - distributed computing is powerful! 💪
-
-Here's my homework solution: <LINK>
-
-Following along with this amazing free course - who else is learning data engineering?
-
-You can sign up here: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```
-
-### Example post for Twitter/X
-
-```
-⚡ Module 6 of Data Engineering Zoomcamp done!
-
-- Batch processing with Spark 🔥
-- PySpark & DataFrames
-- Parquet file optimization
-- Spark UI on port 4040
-
-My solution: <LINK>
-
-Free course by @DataTalksClub: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```
