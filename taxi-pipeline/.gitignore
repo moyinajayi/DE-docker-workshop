@@ -210,3 +210,4 @@ __marimo__/
 .chess_pipeline.duckdb
 .from_csv.duckdb
 .from_database.duckdb
+
