@@ -10,36 +10,7 @@ For this homework we will be using Green Taxi Trip data from October 2025:
 - [green_tripdata_2025-10.parquet](https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2025-10.parquet)
 
 
-## Setup
 
-We'll use the same infrastructure from the [workshop](../../../07-streaming/workshop/).
-
-Follow the setup instructions: build the Docker image, start the services:
-
-```bash
-cd 07-streaming/workshop/
-docker compose build
-docker compose up -d
-```
-
-This gives us:
-
-- Redpanda (Kafka-compatible broker) on `localhost:9092`
-- Flink Job Manager at http://localhost:8081
-- Flink Task Manager
-- PostgreSQL on `localhost:5432` (user: `postgres`, password: `postgres`)
-
-If you previously ran the workshop and have old containers/volumes,
-do a clean start:
-
-```bash
-docker compose down -v
-docker compose build
-docker compose up -d
-```
-
-Note: the container names (like `workshop-redpanda-1`) assume the
-directory is called `workshop`. If you renamed it, adjust accordingly.
 
 
 ## Question 1. Redpanda version
@@ -51,7 +22,9 @@ docker exec -it workshop-redpanda-1 rpk version
 ```
 
 What version of Redpanda are you running?
+Answer : v25.3.9
 
+![Question 1](homework7q1.png)
 
 ## Question 2. Sending data to Redpanda
 
@@ -60,23 +33,6 @@ Create a topic called `green-trips`:
 ```bash
 docker exec -it workshop-redpanda-1 rpk topic create green-trips
 ```
-
-Now write a producer to send the green taxi data to this topic.
-
-Read the parquet file and keep only these columns:
-
-- `lpep_pickup_datetime`
-- `lpep_dropoff_datetime`
-- `PULocationID`
-- `DOLocationID`
-- `passenger_count`
-- `trip_distance`
-- `tip_amount`
-- `total_amount`
-
-Convert each row to a dictionary and send it to the `green-trips` topic.
-You'll need to handle the datetime columns - convert them to strings
-before serializing to JSON.
 
 Measure the time it takes to send the entire dataset and flush:
 
@@ -100,6 +56,10 @@ How long did it take to send the data?
 - 120 seconds
 - 300 seconds
 
+Answer - 10 seconds 
+
+![Question 2](homework7q2.png)
+
 
 ## Question 3. Consumer - trip distance
 
@@ -114,6 +74,10 @@ How many trips have `trip_distance` > 5?
 - 7506
 - 8506
 - 9506
+
+Answer - 8506
+
+![Question 3](homework7q3.png)
 
 
 ## Part 2: PyFlink (Questions 4-6)
@@ -133,24 +97,7 @@ event_timestamp AS TO_TIMESTAMP(lpep_pickup_datetime, 'yyyy-MM-dd HH:mm:ss'),
 WATERMARK FOR event_timestamp AS event_timestamp - INTERVAL '5' SECOND
 ```
 
-Before running the Flink jobs, create the necessary PostgreSQL tables
-for your results.
 
-Important notes for the Flink jobs:
-
-- Place your job files in `workshop/src/job/` - this directory is
-  mounted into the Flink containers at `/opt/src/job/`
-- Submit jobs with:
-  `docker exec -it workshop-jobmanager-1 flink run -py /opt/src/job/your_job.py`
-- The `green-trips` topic has 1 partition, so set parallelism to 1
-  in your Flink jobs (`env.set_parallelism(1)`). With higher parallelism,
-  idle consumer subtasks prevent the watermark from advancing.
-- Flink streaming jobs run continuously. Let the job run for a minute
-  or two until results appear in PostgreSQL, then query the results.
-  You can cancel the job from the Flink UI at http://localhost:8081
-- If you sent data to the topic multiple times, delete and recreate
-  the topic to avoid duplicates:
-  `docker exec -it workshop-redpanda-1 rpk topic delete green-trips`
 
 
 ## Question 4. Tumbling window - pickup location
@@ -177,6 +124,10 @@ Which `PULocationID` had the most trips in a single 5-minute window?
 - 75
 - 166
 
+Answer - 74
+
+![Question 4](homework7q4.png)
+
 
 ## Question 5. Session window - longest streak
 
@@ -197,6 +148,10 @@ How many trips were in the longest session?
 - 51
 - 81
 
+Answer - 81
+
+![Question 5](homework7q5.png)
+
 
 ## Question 6. Tumbling window - largest tip
 
@@ -210,32 +165,18 @@ Which hour had the highest total tip amount?
 - 2025-10-22 08:00:00
 - 2025-10-30 16:00:00
 
+Answer -  2025-10-16 18:00:00
+
+![Question 1](homework7q6.png)
+
 
 ## Submitting the solutions
 
 - Form for submitting: https://courses.datatalks.club/de-zoomcamp-2026/homework/hw7
 
 
-## Learning in public
 
-We encourage everyone to share what they learned.
-Read more about the benefits [here](https://alexeyondata.substack.com/p/benefits-of-learning-in-public-and).
 
-## Example post for LinkedIn
-
-```
-Week 7 of Data Engineering Zoomcamp by @DataTalksClub complete!
-
-Just finished Module 7 - Streaming with PyFlink. Learned how to:
-
-- Set up Redpanda as a Kafka replacement
-- Build Kafka producers and consumers in Python
-- Create tumbling and session windows in Flink
-- Analyze real-time taxi trip data with stream processing
-
-Here's my homework solution: <LINK>
-
-You can sign up here: https://github.com/DataTalksClub/data-engineering-zoomcamp/
 ```
 
 ## Example post for Twitter/X

@@ -40,7 +40,9 @@ services:
       - "5432:5432"
 
   jobmanager:
-    image: apache/flink:1.20.1-scala_2.12-java11
+    build:
+      context: .
+      dockerfile: Dockerfile.flink
     command: jobmanager
     ports:
       - "8081:8081"
@@ -52,7 +54,9 @@ services:
       - ./src:/opt/src
 
   taskmanager:
-    image: apache/flink:1.20.1-scala_2.12-java11
+    build:
+      context: .
+      dockerfile: Dockerfile.flink
     depends_on:
       - jobmanager
     command: taskmanager
