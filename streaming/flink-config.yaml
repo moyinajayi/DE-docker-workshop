@@ -1,0 +1,5 @@
+# Flink configuration
+jobmanager.rpc.address: jobmanager
+taskmanager.numberOfTaskSlots: 4
+parallelism.default: 1
+python.executable: /usr/bin/python3

@@ -1,0 +1,9 @@
+[project]
+name = "pyflink-job"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "apache-flink==2.2.0",
+    "kafka-python-ng",
+    "psycopg2-binary",
+]
