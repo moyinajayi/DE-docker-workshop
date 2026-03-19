@@ -28,3 +28,38 @@ services:
       - 9092:9092
       - 28082:28082
       - 29092:29092
+
+  postgres:
+    image: postgres:18
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  jobmanager:
+    image: apache/flink:1.20.1-scala_2.12-java11
+    command: jobmanager
+    ports:
+      - "8081:8081"
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+    volumes:
+      - ./src:/opt/src
+
+  taskmanager:
+    image: apache/flink:1.20.1-scala_2.12-java11
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 4
+    volumes:
+      - ./src:/opt/src
